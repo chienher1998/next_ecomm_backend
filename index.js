@@ -1,29 +1,53 @@
-import express from "express"
-import prisma from "./src/utils/prisma.js"
-import bodyParser from 'body-parser';
+// these are the backend server code
+import express from "express";
+import prisma from "./src/utils/prisma.js";
+import { Prisma } from "@prisma/client";
 
+const app = express();
+const port = process.env.PORT || 8080;
 
-const app = express()
-const port = process.env.PORT || 8080
-app.use(bodyParser.json());
+//app.use function process or modify incoming requests before they reach the actual route handlers.
+app.use(express.json());
+//bodyParser translate the json to another format from the client request body to talk to the backend
 
-app.get('/users', async (req, res) => {
-  const allUsers = await prisma.user.findMany()
-  res.json(allUsers)
-})
-
-app.post('/users', async (req, res) => {
+// ----------------------Read--------------------------//
+app.get("/users", async (req, res) => {
   try {
-    const user = await prisma.user.create({
-      data: req.body // Assuming req.body contains the user data
-    });
-    res.send(user);// once created, the data is sent back as response in insomnia
+    const allUsers = await prisma.user.findMany();
+    res.send(allUsers);
   } catch (error) {
-    res.status(500).send('Error creating user');
+    res.status(500).send("Error getting user");
   }
 });
 
+// -------------------Create-----------------------------//
+app.post("/users", async (req, res) => {
+  const data = req.body;
 
+  prisma.user
+    .create({
+      data,
+    })
+    .then((user) => {
+      return res.json(user);
+    })
+    .catch((err) => {
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === "P2002"
+      ) {
+        const formattedError = {};
+        formattedError[`${err.meta.target[0]}`] = "already taken";
+
+        return res.status(500).send({
+          error: formattedError,
+        }); // friendly error handling
+      }
+      throw err; // if this happens, our backend application will crash and not respond to the client. because we don't recognize this error yet, we don't know how to handle it in a friendly manner. we intentionally throw an error so that the error monitoring service we'll use in production will notice this error and notify us and we can then add error handling to take care of previously unforeseen errors.
+    });
+});
+
+//used to start a web server and listen for incoming HTTP requests on a specific port
 app.listen(port, () => {
-  console.log(`App started; listening on port ${port}`)
-})
+  console.log(`App started; listening on port ${port}`);
+});
