@@ -3,12 +3,11 @@
         {
             "previewLimit": 50,
             "server": "localhost",
-            "port": 5444,
+            "port": 5443,
             "driver": "PostgreSQL",
             "name": "next",
             "database": "next-ecomm",
-            "username": "next",
-            "password": "next"
+            "username": "next"
         }
     ]
 }
