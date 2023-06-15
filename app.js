@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 import { signAccessToken } from "./src/utils/jwt.js";
 
 const app = express();
-const port = process.env.PORT || 8080;
+// const port = process.env.PORT || 8080;
 
 //app.use function process or modify incoming requests before they reach the actual route handlers.
 app.use(express.json());
@@ -85,7 +85,6 @@ app.post("/users", async (req, res) => {
       ) {
         const formattedError = {};
         formattedError[`${err.meta.target[0]}`] = "already taken";
-
         return res.status(500).send({
           error: formattedError,
         });
@@ -149,6 +148,7 @@ app.post("/sign-in", async (req, res) => {
 
 
 
+
 // app.delete("/users", async (req, res) => {
 //   const data = req.body;
 //     prisma.user.delete({
@@ -167,6 +167,8 @@ app.post("/sign-in", async (req, res) => {
 // });
 
 //used to start a web server and listen for incoming HTTP requests on a specific port
-app.listen(port, () => {
-  console.log(`App started; listening on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`App started; listening on port ${port}`);
+// });
+
+export default app
