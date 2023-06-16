@@ -8,6 +8,16 @@
             "name": "next",
             "database": "next-ecomm",
             "username": "next"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5423,
+            "driver": "PostgreSQL",
+            "name": "testdb-1",
+            "database": "next-ecomm",
+            "username": "next",
+            "password": "next"
         }
     ]
 }
