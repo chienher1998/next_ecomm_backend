@@ -13,8 +13,9 @@ async function cleanupDatabase() {
 
 describe("POST /auth", () => {
   const user = {
+    username: "johndoe",
     email: "john9@example.com",
-    password: "123345",
+    password: "123345123",
   };
 
   beforeAll(async () => {
@@ -25,14 +26,32 @@ describe("POST /auth", () => {
     await cleanupDatabase();
   }); // let user.test.js create user first then only clean up database
 
+  it("upon sign up sucess, return token", async () => {
+    await request(app)
+      .post("/users")
+      .send(user)
+      .set("Accept", "application/json");
+
+    const dummy = {
+      email: "john9@example.com",
+      password: "123345123",
+    };
+    const response = await request(app)
+      .post("/auth")
+      .send(dummy)
+      .set("Accept", "application/json");
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.accessToken).toBeTruthy();
+  });
 
   it("with a wrong email, return 401 and not accessToken", async () => {
     await request(app)
-    .post("/users")
-    .send(user)
-    .set("Accept", "application/json");
+      .post("/users")
+      .send(user)
+      .set("Accept", "application/json");
 
-    user.email = "wrong@example.com"
+    user.email = "wrong@example.com";
 
     const response = await request(app)
       .post("/auth")
@@ -43,14 +62,13 @@ describe("POST /auth", () => {
     expect(response.body.error).toBe("Email address or password not valid");
   });
 
-  
   it("with a wrong password", async () => {
     await request(app)
       .post("/users")
       .send(user)
       .set("Accept", "application/json");
 
-      user.password = "wrong"
+    user.password = "wrong";
 
     const response = await request(app)
       .post("/auth")

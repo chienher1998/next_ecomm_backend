@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import prisma from "../utils/prisma.js";
 import { validateLogin } from "../validators/auth.js";
 import { filter } from "../utils/common.js";
+import { signAccessToken } from "../utils/jwt.js";
+
 const router = express.Router();
 
 router.post("/", async (req, res) => {

@@ -4,10 +4,20 @@ import { Prisma } from "@prisma/client";
 import prisma from "../utils/prisma.js";
 import { validateUser } from "../validators/users.js";
 import { filter } from "../utils/common.js";
+// import sgMail from "@sendgrid/mail";
+
 const router = express.Router();
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.post("/", async (req, res) => {
   const data = req.body;
+  // const msg = {
+  //   to: "clement.ch90@gmail.com", // Change to your recipient
+  //   from: "clement.ch90@gmail.com", // Change to your verified sender
+  //   subject: "Sending with SendGrid is Fun",
+  //   text: "U DUMB and easy to do anywhere, even with Node.js",
+  //   html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+  // };
 
   const validationErrors = validateUser(data);
 
@@ -23,6 +33,16 @@ router.post("/", async (req, res) => {
       data,
     })
     .then((user) => {
+      // sgMail
+      //   .send(msg)
+      //   .then((response) => {
+      //     console.log(response[0].statusCode);
+      //     console.log(response[0].headers);
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
+
       return res.json(filter(user, "id", "username", "email"));
     })
     .catch((err) => {
