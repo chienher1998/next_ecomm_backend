@@ -15,7 +15,7 @@ describe("POST /users", () => {
   const user = {
     username: "John",
     email: "john9@example.com",
-    password: "insecure",
+    password: "insecure11",
   };
 
   beforeAll(async () => {

@@ -14,8 +14,8 @@ async function cleanupDatabase() {
 describe("POST /auth", () => {
   const user = {
     username: "johndoe",
-    email: "john9@example.com",
-    password: "123345123",
+    email: "john98@example.com",
+    password: "123123123",
   };
 
   beforeAll(async () => {
@@ -33,8 +33,8 @@ describe("POST /auth", () => {
       .set("Accept", "application/json");
 
     const dummy = {
-      email: "john9@example.com",
-      password: "123345123",
+      email: "john98@example.com",
+      password: "123123123",
     };
     const response = await request(app)
       .post("/auth")
