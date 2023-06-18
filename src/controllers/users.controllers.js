@@ -12,10 +12,10 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const data = req.body;
   // const msg = {
-  //   to: "clement.ch90@gmail.com", // Change to your recipient
+  //   to: data.email, // Change to your recipient
   //   from: "clement.ch90@gmail.com", // Change to your verified sender
   //   subject: "Sending with SendGrid is Fun",
-  //   text: "U DUMB and easy to do anywhere, even with Node.js",
+  //   text: "easy to do anywhere, even with Node.js",
   //   html: "<strong>and easy to do anywhere, even with Node.js</strong>",
   // };
 
