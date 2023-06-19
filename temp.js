@@ -16,21 +16,23 @@
 //     console.log({ res })
 // }
 
-// import prisma from "./src/utils/prisma.js";
 
-// async function main() {
-//   prisma.user
-//     .delete({
-//       where: {
-//         email: "123@testing.com",
-//       },
-//     })
-//     .then((user) => {
-//       console.log(user);
-//     })
-//     .catch((e) => {
-//       console.log(e.message);
-//     });
-// }
 
-// main();
+import prisma from "./src/utils/prisma.js";
+
+async function main() {
+  prisma.user
+    .delete({
+      where: {
+        email: "123123@aslfd.com",
+      },
+    })
+    .then((user) => {
+      console.log(user);
+    })
+    .catch((e) => {
+      console.log(e.message);
+    });
+}
+
+main();

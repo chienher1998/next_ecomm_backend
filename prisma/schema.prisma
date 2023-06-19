@@ -12,20 +12,20 @@ datasource db {
 
 model User {
   id       Int     @id @default(autoincrement())
-  name     String?
+  name     String
   email    String  @unique
-  password String?
+  password String
   NFT      NFT[]
 }
 
 model NFT {
   id        Int      @id @default(autoincrement())
-  title     String?
+  title     String
   desc      String   @unique
-  price     String?
-  imageFile String?
+  price     String
+  imageFile String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
+  User      User    @relation(fields: [userId], references: [id])
+  userId    Int
 }
