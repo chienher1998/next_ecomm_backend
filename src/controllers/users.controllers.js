@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
       //     console.error(error);
       //   });
 
-      return res.json(filter(user, "id", "username", "email"));
+      return res.json(filter(user, "id", "name", "email"));
     })
     .catch((err) => {
       if (

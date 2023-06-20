@@ -1,8 +1,8 @@
 export function validateUser(input) {
   const validationErrors = {};
 
-  if (!("username" in input) || input["username"].length == 0) {
-    validationErrors["username"] = "cannot be blank";
+  if (!("name" in input) || input["name"].length == 0) {
+    validationErrors["name"] = "cannot be blank";
   }
 
   if (!("email" in input) || input["email"].length == 0) {
