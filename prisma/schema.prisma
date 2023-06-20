@@ -16,6 +16,8 @@ model User {
   email    String  @unique
   password String?
   NFT      NFT[]
+
+  @@unique([id, name])
 }
 
 model NFT {
@@ -26,6 +28,7 @@ model NFT {
   imageFile String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [userId, userName], references: [id, name])
   userId    Int?
+  userName  String?
 }

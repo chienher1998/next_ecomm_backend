@@ -37,16 +37,17 @@
 
 import jwt from "jsonwebtoken";
 
-
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1NywiZW1haWwiOiJjaGllbmhlckBob3RtYWlsLmNvbSJ9LCJpYXQiOjE2ODcxODI2NzB9.B_oIgX8PgrGajsXPQfqlBwn71GvYdhDbXVqLuLc-lFY';
-const secret = 'x6ZaCwC7Pjehg.hHXzu';
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1NywibmFtZSI6ImNoaWVuaGVyIiwiZW1haWwiOiJjaGllbmhlckBob3RtYWlsLmNvbSJ9LCJpYXQiOjE2ODcyMzUyMDN9.HFUqy4btYsex25_f5WXIemF-BSqcrhUzu6_PGpAhalM";
+const secret = "x6ZaCwC7Pjehg.hHXzu";
 // in a token consists of header, payload and signature
 try {
-    const decoded = jwt.verify(token, secret);//verifying token would return the decoded payload
-    //checks if the signature of the token matches the secret key
-    console.log(decoded)
-    const userId = decoded.payload.id; // Extracting the user ID from the "id" property
-    console.log('User ID:', userId);
-  } catch (error) {
-    console.error('Invalid token:', error);
-  }
+  const decoded = jwt.verify(token, secret); //verifying token would return the decoded payload
+  //checks if the signature of the token matches the secret key
+  console.log(decoded);
+  const userId = decoded.payload.email; // Extracting the user ID from the "id" property
+  console.log("User ID:", userId);
+} catch (error) {
+  console.error("Invalid token:", error);
+}
+

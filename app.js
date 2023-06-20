@@ -12,6 +12,7 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cors());
 
+app.use("/image/load", imageRouter)
 app.use("/image", auth, imageRouter) // verify users token before they can upload image
 app.use("/users", userRouter);
 app.use("/auth", authRouter);

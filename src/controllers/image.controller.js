@@ -1,15 +1,16 @@
 import express from "express";
 import prisma from "../utils/prisma.js";
-// import auth from "../middlewares/auth.js";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   const data = req.body;
+  const dataId = req.user.id
   //create your validation here
   prisma.nFT
     .create({
       data,
+      userId: dataId,
     })
     .then((nFt) => {
       return res.json(nFt);
