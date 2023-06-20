@@ -27,15 +27,35 @@ router.get("/", async (req, res) => {
   });
 });
 
+router.patch("/:id", async (req, res) => {
+  const data = req.body;
+  const id = parseInt(req.params.id); // Convert id to integer
+
+  const updateImage = await prisma.nFT
+    .update({
+      where: {
+        id: id,
+      },
+      data,
+    })
+    .then((nFt) => {
+      return res.json(nFt);
+    })
+    .catch((error) => {
+      return res.status(500).json({ error: "Failed to update image" });
+    });
+});
+
 router.delete("/:id", async (req, res) => {
-  const image = await prisma.image.findUnique({
+  const id = parseInt(req.params.id);
+  const image = await prisma.nFT.findUnique({
     where: {
-      id: req.params.id,
+      id: id,
     },
   });
 
   // we have access to `req.user` from our auth middleware function (see code above where the assignment was made)
-  if (req.user.id != image.user_id) {
+  if (req.user.id != nFT.user_id) {
     return res.status(401).send({ error: "Unauthorized" });
   }
 

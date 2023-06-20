@@ -16,24 +16,24 @@
 //     console.log({ res })
 // }
 
-import prisma from "./src/utils/prisma.js";
+// import prisma from "./src/utils/prisma.js";
 
-async function main() {
-  prisma.nFT
-    .delete({
-      where: {
-        id: 41,
-      },
-    })
-    .then((nFT) => {
-      console.log(nFT);
-    })
-    .catch((e) => {
-      console.log(e.message);
-    });
-}
+// async function main() {
+//   prisma.nFT
+//     .delete({
+//       where: {
+//         id: 50,
+//       },
+//     })
+//     .then((nFT) => {
+//       console.log(nFT);
+//     })
+//     .catch((e) => {
+//       console.log(e.message);
+//     });
+// }
 
-main();
+// main();
 
 // import jwt from "jsonwebtoken";
 

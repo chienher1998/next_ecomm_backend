@@ -34,9 +34,12 @@ router.post("/", async (req, res) => {
       error: "Email address or password not valid",
     });
   const userFiltered = filter(user, "id", "name", "email");
-  console.log(userFiltered);
+  const userId = userFiltered.id
+  const userName = userFiltered.name
+  console.log(userName);
   const accessToken = await signAccessToken(userFiltered);
-  return res.json({ accessToken });
+
+  return res.json({ accessToken, userId, userName});
 });
 
 export default router;
