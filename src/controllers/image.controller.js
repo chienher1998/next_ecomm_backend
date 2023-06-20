@@ -1,16 +1,20 @@
 import express from "express";
 import prisma from "../utils/prisma.js";
+import auth from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  const data = req.body;
-  const dataId = req.user.id
+router.post("/", auth, async (req, res) => {
+  const databody = req.body;
+  const dataId = req.user.payload.id; // passed from auth
+  const dataName = req.user.payload.name;
+  const data = { ...databody, userId: dataId, userName: dataName }; // spread operator joins the other object together
+
   //create your validation here
+
   prisma.nFT
     .create({
       data,
-      userId: dataId,
     })
     .then((nFt) => {
       return res.json(nFt);
@@ -18,10 +22,9 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  await prisma.nFT.findMany()
-  .then((nFT)=> {
-    return res.json(nFT)
-  })
+  await prisma.nFT.findMany().then((nFT) => {
+    return res.json(nFT);
+  });
 });
 
 router.delete("/:id", async (req, res) => {
