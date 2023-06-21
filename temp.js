@@ -35,19 +35,19 @@
 
 // main();
 
-// import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
-// const token =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1NywibmFtZSI6ImNoaWVuaGVyIiwiZW1haWwiOiJjaGllbmhlckBob3RtYWlsLmNvbSJ9LCJpYXQiOjE2ODcyMzUyMDN9.HFUqy4btYsex25_f5WXIemF-BSqcrhUzu6_PGpAhalM";
-// const secret = "x6ZaCwC7Pjehg.hHXzu";
-// // in a token consists of header, payload and signature
-// try {
-//   const payload = jwt.verify(token, secret); //verifying token would return the decoded payload
-//   //checks if the signature of the token matches the secret key
-//   console.log(payload);
-//   const userId = payload.payload.email; // Extracting the user ID from the "id" property
-//   console.log("User ID:", userId);
-// } catch (error) {
-//   console.error("Invalid token:", error);
-// }
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1NywibmFtZSI6ImNoaWVuaGVyIiwiZW1haWwiOiJjaGllbmhlckBob3RtYWlsLmNvbSJ9LCJpYXQiOjE2ODcyMzUyMDN9.HFUqy4btYsex25_f5WXIemF-BSqcrhUzu6_PGpAhalM";
+const secret = "x6ZaCwC7Pjehg.hHXzu";
+// in a token consists of header, payload and signature
+try {
+  const payload = jwt.verify(token, secret); //verifying token would return the decoded payload
+  //checks if the signature of the token matches the secret key
+  console.log(payload);
+  const userId = payload.payload.email; // Extracting the user ID from the "id" property
+  console.log("User ID:", userId);
+} catch (error) {
+  console.error("Invalid token:", error);
+}
 
