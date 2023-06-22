@@ -11,6 +11,7 @@ const app = express();
 app.use(morgan("combined"));
 app.use(express.json());
 app.use(cors());
+
 app.use("/create-checkout-session", stripeRouter);
 app.use("/image", imageRouter); // verify users token before they can upload image
 app.use("/users", userRouter);

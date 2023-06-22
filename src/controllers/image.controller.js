@@ -40,7 +40,7 @@ router.get("/:id", async (req, res) => {
     });
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth, async (req, res) => {
   const data = req.body;
   const id = parseInt(req.params.id); // Convert id to integer
   const image = await prisma.nFT.findUnique({
