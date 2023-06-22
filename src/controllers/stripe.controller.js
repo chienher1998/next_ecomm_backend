@@ -8,13 +8,13 @@ const stripe = new Stripe(
 const YOUR_DOMAIN = "http://localhost:5173";
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  const id = parseInt(req.id);
+router.post("/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
   const image = await prisma.nFT.findUnique({
     where: {
       id: id,
     },
-  });
+  })
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
