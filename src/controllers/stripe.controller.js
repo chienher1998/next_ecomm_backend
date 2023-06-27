@@ -16,6 +16,7 @@ router.post("/:id", async (req, res) => {
       id: id,
     },
   });
+  console.log(image.imageFile)
 
   async function getEthToUsdRate() {
     try {

@@ -22,10 +22,17 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  await prisma.nFT.findMany().then((nFT) => {
-    return res.json(nFT);
-  });
+  await prisma.nFT
+    .findMany({
+      orderBy: {
+        createdAt: "asc",
+      },
+    })
+    .then((nFT) => {
+      return res.json(nFT);
+    });
 });
+
 
 router.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id);

@@ -22,7 +22,7 @@
 //   prisma.nFT
 //     .delete({
 //       where: {
-//         id: 50,
+//         id: 64,
 //       },
 //     })
 //     .then((nFT) => {
@@ -32,7 +32,7 @@
 //       console.log(e.message);
 //     });
 // }
-
+ 
 // main();
 
 // import jwt from "jsonwebtoken";
