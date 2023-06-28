@@ -36,7 +36,6 @@ router.post("/", async (req, res) => {
   const userFiltered = filter(user, "id", "name", "email");
   const userId = userFiltered.id
   const userName = userFiltered.name
-  console.log(userName);
   const accessToken = await signAccessToken(userFiltered);
 
   return res.json({ accessToken, userId, userName});

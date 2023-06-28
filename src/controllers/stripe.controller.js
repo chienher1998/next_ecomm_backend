@@ -3,9 +3,7 @@ import express from "express";
 import prisma from "../utils/prisma.js";
 import axios from "axios";
 import auth from "../middlewares/auth.js";
-const stripe = new Stripe(
-  "sk_test_51NLL4zLuItmOXGtPgtQstCbiAwq2JguYSHPmW4TaqZsN3a5BFZj1kPVMc7B30m9bWHLiyEQUJ3qNyDSkNs2mOtwr00fqwJKR6u"
-);
+const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 const YOUR_DOMAIN = "http://localhost:5173";
 const router = express.Router();
