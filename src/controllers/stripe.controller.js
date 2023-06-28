@@ -52,7 +52,7 @@ router.post("/:id", auth, async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: `${YOUR_DOMAIN}/`,
+    success_url: `${YOUR_DOMAIN}/success`,
     cancel_url: `${YOUR_DOMAIN}/NFT/${id}`,
   });
 
