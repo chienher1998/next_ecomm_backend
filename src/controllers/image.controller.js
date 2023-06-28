@@ -84,15 +84,12 @@ router.patch("/:id", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-  const id = parseInt(req.params.id);
-  console.log(id);
+  const id = +req.params.id;
   const image = await prisma.nFT.findUnique({
     where: {
       id: id,
     },
   });
-
-  console.log(image);
 
   // we have access to `req.user` from our auth middleware function (see code above where the assignment was made)
   if (req.user.payload.id != image.userId) {
@@ -108,7 +105,7 @@ router.delete("/:id", auth, async (req, res) => {
     .then(() => {
       return res.json({ message: "Image has been deleted" });
     })
-    .catch((error) => {
+    .catch(() => {
       return res.status(500).json({ error: "Failed to delete image" });
     });
 });
