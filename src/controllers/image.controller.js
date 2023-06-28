@@ -10,8 +10,6 @@ router.post("/", auth, async (req, res) => {
   const dataName = req.user.payload.name;
   const data = { ...databody, userId: dataId, userName: dataName }; // spread operator joins the other object together
 
-  //create your validation here
-
   prisma.nFT
     .create({
       data,
@@ -22,21 +20,32 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  await prisma.nFT
-    .findMany({
+  const id = +req.query.users; // + is shorthand of parseInt
+  let result;
+
+  if (id) {
+    result = await prisma.nFT.findMany({
+      where: {
+        userId: id,
+      },
       orderBy: {
         createdAt: "asc",
       },
-    })
-    .then((nFT) => {
-      return res.json(nFT);
     });
+  } else {
+    result = await prisma.nFT.findMany({
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+  }
+
+  return res.json(result);
 });
 
-
 router.get("/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  await prisma.nFT
+  const id = +req.params.id;
+  prisma.nFT
     .findUnique({
       where: {
         id: id,
@@ -49,7 +58,7 @@ router.get("/:id", async (req, res) => {
 
 router.patch("/:id", auth, async (req, res) => {
   const data = req.body;
-  const id = parseInt(req.params.id); // Convert id to integer
+  const id = +req.params.id; // Convert id to integer
   const image = await prisma.nFT.findUnique({
     where: {
       id: id,
@@ -58,7 +67,6 @@ router.patch("/:id", auth, async (req, res) => {
   if (req.user.payload.id != image.userId) {
     return res.status(401).send({ error: "Unauthorized" });
   }
-
   await prisma.nFT
     .update({
       where: {
@@ -66,8 +74,9 @@ router.patch("/:id", auth, async (req, res) => {
       },
       data,
     })
-    .then((nFt) => {
-      return res.json(nFt);
+    .then((nFT) => {
+      //then = await
+      return res.json(nFT);
     })
     .catch((error) => {
       return res.status(500).json({ error: "Failed to update image" });
@@ -76,11 +85,14 @@ router.patch("/:id", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   const id = parseInt(req.params.id);
+  console.log(id);
   const image = await prisma.nFT.findUnique({
     where: {
       id: id,
     },
   });
+
+  console.log(image);
 
   // we have access to `req.user` from our auth middleware function (see code above where the assignment was made)
   if (req.user.payload.id != image.userId) {
@@ -93,11 +105,11 @@ router.delete("/:id", auth, async (req, res) => {
         id: id,
       },
     })
-    .then((nFt) => {
-      return res.json(nFt);
+    .then(() => {
+      return res.json({ message: "Image has been deleted" });
     })
     .catch((error) => {
-      return res.status(500).json({ error: "Failed to update image" });
+      return res.status(500).json({ error: "Failed to delete image" });
     });
 });
 

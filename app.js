@@ -4,7 +4,6 @@ import userRouter from "./src/controllers/users.controllers.js";
 import authRouter from "./src/controllers/auth.controllers.js";
 import imageRouter from "./src/controllers/image.controller.js";
 import stripeRouter from "./src/controllers/stripe.controller.js";
-import editRouter from "./src/controllers/edit.controller.js";
 import cors from "cors";
 import morgan from "morgan";
 
@@ -15,7 +14,6 @@ app.use(cors());
 
 app.use("/create-checkout-session", stripeRouter);
 app.use("/image", imageRouter); // verify users token before they can upload image
-app.use("/edit", editRouter)
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 

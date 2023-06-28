@@ -22,13 +22,14 @@ model User {
 
 model NFT {
   id        Int      @id @default(autoincrement())
-  title     String?
-  desc      String   @unique
-  price     String?
-  imageFile String?
+  title     String
+  desc      String   
+  price     String
+  imageFile String   @unique
+  imageName String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId, userName], references: [id, name])
-  userId    Int?
-  userName  String?
+  User      User    @relation(fields: [userId, userName], references: [id, name])
+  userId    Int
+  userName  String
 }

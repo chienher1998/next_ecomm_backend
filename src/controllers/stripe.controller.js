@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import express from "express";
 import prisma from "../utils/prisma.js";
 import axios from "axios";
+import auth from "../middlewares/auth.js";
 const stripe = new Stripe(
   "sk_test_51NLL4zLuItmOXGtPgtQstCbiAwq2JguYSHPmW4TaqZsN3a5BFZj1kPVMc7B30m9bWHLiyEQUJ3qNyDSkNs2mOtwr00fqwJKR6u"
 );
@@ -9,14 +10,17 @@ const stripe = new Stripe(
 const YOUR_DOMAIN = "http://localhost:5173";
 const router = express.Router();
 
-router.post("/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
+router.post("/:id", auth, async (req, res) => {
+  const id = +req.params.id;
   const image = await prisma.nFT.findUnique({
     where: {
       id: id,
     },
   });
-  console.log(image.imageFile)
+
+  if (req.user.payload.id != image.userId) {
+    return res.status(401).send({ error: "Unauthorized" });
+  }
 
   async function getEthToUsdRate() {
     try {
@@ -33,14 +37,14 @@ router.post("/:id", async (req, res) => {
     }
   }
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
+    payment_method_types: ["card"],
     line_items: [
       {
         price_data: {
           currency: "usd",
           product_data: {
             name: image.title,
-            images: [image.imageFile]
+            images: [image.imageFile],
           },
           unit_amount: Math.round((await getEthToUsdRate()) * 100),
         },
@@ -48,8 +52,8 @@ router.post("/:id", async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: `${YOUR_DOMAIN}/success.html`,
-    cancel_url: `${YOUR_DOMAIN}/`,
+    success_url: `${YOUR_DOMAIN}/`,
+    cancel_url: `${YOUR_DOMAIN}/NFT/${id}`,
   });
 
   res.json(session.url);
