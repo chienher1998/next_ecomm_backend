@@ -1,13 +1,14 @@
-# fly.toml app configuration file generated for pixelvaultdb on 2023-06-28T16:42:11+08:00
+# fly.toml app configuration file generated for pixelvaultbackend on 2023-06-28T18:00:51+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "pixelvaultdb"
+app = "pixelvaultbackend"
 primary_region = "sin"
 
 [build]
   dockerfile = "Dockerfile"
+  ignorefile = ".dockerignore"
 
 [http_service]
   internal_port = 8080

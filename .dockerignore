@@ -3,5 +3,6 @@
 **/node_modules
 **/.env*
 **/db* # add a *
-**/secrets
 fly.toml
+db.test
+db

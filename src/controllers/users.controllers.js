@@ -9,6 +9,7 @@ import { filter } from "../utils/common.js";
 const router = express.Router();
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+
 router.post("/", async (req, res) => {
   const data = req.body;
   // const msg = {

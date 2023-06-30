@@ -1,7 +1,6 @@
 import express from "express";
 import prisma from "../utils/prisma.js";
 import auth from "../middlewares/auth.js";
-
 const router = express.Router();
 
 router.post("/", auth, async (req, res) => {

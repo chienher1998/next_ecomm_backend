@@ -5,7 +5,7 @@ import axios from "axios";
 import auth from "../middlewares/auth.js";
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
-const YOUR_DOMAIN = "http://localhost:5173";
+const YOUR_DOMAIN = "https://pixelvault.pages.dev";
 const router = express.Router();
 
 router.post("/:id", auth, async (req, res) => {
